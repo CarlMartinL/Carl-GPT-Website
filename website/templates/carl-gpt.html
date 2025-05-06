@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Carl GPT{% endblock %}
+
+{% block content %}
+<h1>This is Carl-GPT page</h1>
+
+<!-- Show previous messages -->
+<ul>
+  {% for message in messages %}
+    <li>
+      {% if message.startswith("Y") %}
+        <b>{{ message[:4] }}</b>{{ message[4:] }}
+      {% elif message.startswith("C") %}
+        <b>{{ message[:9] }}</b>{{ message[9:] }}
+      {% else %}
+        {{ message }}
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+
+<!-- Form to submit message -->
+<h2>Type Something</h2>
+<form method="POST" onsubmit="disableButton()">
+    <input type="text" name="user_input" placeholder="Type here" required>
+    <input type="submit" id="submitButton" value="Submit">
+</form>
+
+<!-- This makes shure that the user does not duble click the submit button -->
+<script>
+    function disableButton() {
+        document.getElementById("submitButton").disabled = true;
+    }
+</script>
+{% endblock %}
