@@ -13,16 +13,13 @@ def logout():
 
 from website.Chat_GPT.Chat_gpt import chat_with_gpt
 
-@auth.route('/carl-gpt')
-def carl_GPT():
-    global messages
-    initialMessage = 'Carl-GPT: '+chat_with_gpt("Welcome me to you website")
-    messages = [initialMessage]
-    return render_template("carl-gpt.html", boolean=True,initialMessage=initialMessage,messages=messages)
 
-@auth.route('/carl-gpt',methods=['POST'])
+@auth.route('/',methods=['POST'])
 def respond():
     global messages
+
+    initialMessage = "Carl-GPT: Hi, I am CarlGPT. What do you want to talk about?"
+    messages = [initialMessage]
 
     #User respnse
     userReply = get_user_reply()
