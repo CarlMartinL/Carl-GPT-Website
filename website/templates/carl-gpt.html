@@ -1,35 +1,46 @@
 {% extends "base.html" %}
-{% block title %}Carl GPT{% endblock %}
 
 {% block content %}
 <h1>CarlGPT</h1>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" content="Carl-GPT,Carlgpt, carlgpt,CarlGPT, Chatbot">
+    <meta name="description" content="This is a website where you can chat with CarlGPT ">
+    <title>Carl GPT</title>
 
+</head>
 <!-- Show previous messages -->
-<ul>
-  {% for message in messages %}
-    <li>
-      {% if message.startswith("Y") %}
-        <b>{{ message[:4] }}</b>{{ message[4:] }}
-      {% elif message.startswith("C") %}
-        <b>{{ message[:9] }}</b>{{ message[9:] }}
-      {% else %}
-        {{ message }}
-      {% endif %}
-    </li>
-  {% endfor %}
-</ul>
+
+<body>
+    <ul>
+      {% for message in messages %}
+        <li>
+          {% if message.startswith("Y") %}
+            <b>{{ message[:4] }}</b>{{ message[4:] }}
+          {% elif message.startswith("C") %}
+            <b>{{ message[:9] }}</b>{{ message[9:] }}
+          {% else %}
+            {{ message }}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
 
 <!-- Form to submit message -->
 
-<form method="POST" onsubmit="disableButton()">
-    <input type="text" name="user_input" placeholder="Ask Carl" required>
-    <input type="submit" id="submitButton" value="Submit">
-</form>
-
+    <form method="POST" onsubmit="disableButton()">
+        <input type="text" name="user_input" placeholder="Ask Carl" required>
+        <input type="submit" id="submitButton" value="Submit">
+    </form>
+</body>
 <!-- This makes shure that the user does not duble click the submit button -->
 <script>
     function disableButton() {
         document.getElementById("submitButton").disabled = true;
     }
 </script>
+</html>
 {% endblock %}
