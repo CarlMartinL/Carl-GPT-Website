@@ -1,12 +1,32 @@
-from flask import Blueprint, render_template, request, flash
-
+from flask import Blueprint, render_template, request, flash, redirect, url_for
+from werkzeug.security import check_password_hash
+from flask_login import login_user
+from .models import User  # Assuming your model is in 'models.py'
 auth = Blueprint('auth',__name__)
+
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    data = request.form
-    print(data)
-    return render_template("login.html", boolean=True)
+    if request.method == 'POST':  # Check if it's a POST request (form submission)
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        # Print form data (just for debugging purposes)
+        print(f"Email: {email}, Password: {password}")
+
+        # Check if user exists in the database
+        user = User.query.filter_by(email=email).first()
+
+        # If user exists and password is correct
+        if user and check_password_hash(user.password, password):
+            login_user(user)  # Log the user in
+            flash('Login successful!', category='success')  # Show success message
+            return redirect(url_for('views.home'))  # Redirect to the home page
+
+        else:
+            flash('Login failed. Check your credentials.', category='error')  # Show error message
+
+    return render_template("login.html")
 @auth.route('/logout')
 def logout():
     return "<p>Logout</p>"

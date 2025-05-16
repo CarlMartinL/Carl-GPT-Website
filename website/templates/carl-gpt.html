@@ -10,17 +10,31 @@
     <meta name="keywords" content="Carl-GPT,Carlgpt, carlgpt,CarlGPT, Chatbot">
     <meta name="description" content="This is a website where you can chat with CarlGPT ">
     <title>Carl GPT</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img.png') }}">
 
+    <style>
+            img {
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              margin-right: 10px;
+              flex-shrink: 0;
+              margin-bottom:10px;
+            }
+    </style>
 </head>
 <!-- Show previous messages -->
 
 <body>
+
     <ul>
       {% for message in messages %}
         <li>
           {% if message.startswith("Y") %}
+            <img src="{{ url_for('static', filename='images/pfp.png') }}" alt="no photo">
             <b>{{ message[:4] }}</b>{{ message[4:] }}
           {% elif message.startswith("C") %}
+            <img src="{{ url_for('static', filename='images/carl.png') }}" alt="no photo">
             <b>{{ message[:9] }}</b>{{ message[9:] }}
           {% else %}
             {{ message }}
